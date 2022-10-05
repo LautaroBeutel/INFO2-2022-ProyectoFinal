@@ -3,14 +3,24 @@
 
 using namespace std;
 
+//WINDOW *create_wind(int height, int width, int startX, int startY);
+//void destroy_win(WINDOW *local_win);
+
 int main(){
-	initscr();	//screan init
-	int ch;	
-	keypad(stdscr, TRUE);	//allows function keys and arrows
 
-//	refresh();	//refresh the screen to print what is in the memory
+	/*NCURSES INIT*/
+	initscr();
+		
+	keypad(stdscr, TRUE);
+		
+	/*Create a new window*/
+	WINDOW *menuwin = newwin(10, 10, 2, 2);
+	refresh();
 
-	while(1){
+	box(menuwin, 0, 0);
+	wrefresh(menuwin);	
+	getch();
+/*	while(1){
 		while((ch = getch()) != KEY_F(1)){
 			switch(ch){
 				case KEY_LEFT:	printw("izquierda\n");
@@ -26,7 +36,21 @@ int main(){
 		
 		}
 	}
-
+*/
 	endwin();	//free the used memory 
 	return 0;
 }
+
+/*WINDOW *create_wind(int height, int width, int startX, int startY){
+	WINDOW *local_win;
+
+	local_win = newwin(height, width, startX, startY);
+	box(local_win, 0, 0);
+	wrefresh(local_win);
+
+	return local_win; 
+}
+
+void destroy_win(WINDOW local_win){
+	
+}*/
