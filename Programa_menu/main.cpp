@@ -8,10 +8,11 @@ typedef struct{
 	int b;
 }page_menu;
 
-void menu(page_menu *main);
-void seleccion(page_menu *main);
+void menu(page_menu *ptrmain);
+void seleccion(page_menu *ptrmain);
+void enter(page_menu *ptrmain);
 
-const char *opciones[] = {"opcion 1", "opcion 2", "opcion 3", "opcion 4"};
+const char *opciones[] = {"opcion 1", "opcion 2", "opcion 3", "Salir"};
 
 int main(){
 	
@@ -38,14 +39,10 @@ void seleccion(page_menu *ptrmain){
 					ptrmain->a = ptrmain->a < 0 ? 0 : ptrmain->a;
 				break;
 			case KEY_DOWN:	ptrmain->a++;
-					ptrmain->a = ptrmain->a > 4 ? 4 : ptrmain->a;
+					ptrmain->a = ptrmain->a > 3 ? 3 : ptrmain->a;
 				break;
-			case 'q':	ptrmain->b--;
-					ptrmain->b = ptrmain->b < 0 ? 0 : ptrmain->b;
-				break;
-			case 10:	ptrmain->b++;
-					ptrmain->b = ptrmain->b > 1 ? 1: ptrmain->b;
-				break;
+			case 10: 	enter(ptrmain);
+					break;
 		}
 		menu(ptrmain);
 	}
@@ -53,18 +50,48 @@ void seleccion(page_menu *ptrmain){
 
 void menu(page_menu *ptrmain){
 	switch(ptrmain->a){
-		case 0:	printw("\r%s", opciones[0]);
-			printw("\t%d", ptrmain->b);
+		case 0:	attron(A_STANDOUT);
+			mvprintw(1, 2, "%s", opciones[0]);
+			attroff(A_STANDOUT);
+			mvprintw(2, 2, "%s", opciones[1]);
+			mvprintw(3, 2, "%s", opciones[2]);
+			mvprintw(4, 2, "%s", opciones[3]);
+			refresh();
 			break;
-		case 1:	printw("\r%s", opciones[1]);
-			printw("\t%d", ptrmain->b);
+		case 1:	attron(A_STANDOUT);
+			mvprintw(2, 2, "%s", opciones[1]);
+			attroff(A_STANDOUT);
+			mvprintw(1, 2, "%s", opciones[0]);
+			mvprintw(3, 2, "%s", opciones[2]);
+			mvprintw(4, 2, "%s", opciones[3]);
+			refresh();
 			break;
-		case 2:	printw("\r%s", opciones[2]);
-			printw("\t%d", ptrmain->b);
+		case 2:	attron(A_STANDOUT);
+			mvprintw(3, 2, "%s", opciones[2]);
+			attroff(A_STANDOUT),
+			mvprintw(1, 2, "%s", opciones[0]);
+			mvprintw(2, 2, "%s", opciones[1]);
+			mvprintw(4, 2, "%s", opciones[3]);
+			refresh();
 			break;
-		case 3: printw("\r%s", opciones[3]);
-			printw("\t%d", ptrmain->b);
+		case 3:	attron(A_STANDOUT);
+			mvprintw(4, 2, "%s", opciones[3]);
+			attroff(A_STANDOUT);
+			mvprintw(1, 2, "%s", opciones[0]);
+			mvprintw(2, 2, "%s", opciones[1]);
+			mvprintw(3, 2, "%s", opciones[2]);
+			refresh();
 			break;
 	}
 	refresh();
+}
+
+void enter(page_menu *ptrmain){
+	switch(ptrmain->a){
+		case 3: system("clear");
+			exit(1);
+			break;
+		default:
+			break;
+	}
 }
