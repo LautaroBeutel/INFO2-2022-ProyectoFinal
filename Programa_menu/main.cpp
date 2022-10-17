@@ -24,7 +24,7 @@ int main(){
 	curs_set(0);		
 	
 	WINDOW *main = newwin(20, 20, 0, 0);
-	
+	menu(&main_menu);	
 	seleccion(&main_menu);
 
 	endwin();
@@ -50,7 +50,8 @@ void seleccion(page_menu *ptrmain){
 
 void menu(page_menu *ptrmain){
 	switch(ptrmain->a){
-		case 0:	attron(A_STANDOUT);
+		case 0:	clear();
+			attron(A_STANDOUT);
 			mvprintw(1, 2, "%s", opciones[0]);
 			attroff(A_STANDOUT);
 			mvprintw(2, 2, "%s", opciones[1]);
@@ -58,7 +59,8 @@ void menu(page_menu *ptrmain){
 			mvprintw(4, 2, "%s", opciones[3]);
 			refresh();
 			break;
-		case 1:	attron(A_STANDOUT);
+		case 1:	clear();
+			attron(A_STANDOUT);
 			mvprintw(2, 2, "%s", opciones[1]);
 			attroff(A_STANDOUT);
 			mvprintw(1, 2, "%s", opciones[0]);
@@ -66,7 +68,8 @@ void menu(page_menu *ptrmain){
 			mvprintw(4, 2, "%s", opciones[3]);
 			refresh();
 			break;
-		case 2:	attron(A_STANDOUT);
+		case 2:	clear();
+			attron(A_STANDOUT);
 			mvprintw(3, 2, "%s", opciones[2]);
 			attroff(A_STANDOUT),
 			mvprintw(1, 2, "%s", opciones[0]);
@@ -74,7 +77,8 @@ void menu(page_menu *ptrmain){
 			mvprintw(4, 2, "%s", opciones[3]);
 			refresh();
 			break;
-		case 3:	attron(A_STANDOUT);
+		case 3:	clear();
+			attron(A_STANDOUT);
 			mvprintw(4, 2, "%s", opciones[3]);
 			attroff(A_STANDOUT);
 			mvprintw(1, 2, "%s", opciones[0]);
@@ -88,6 +92,13 @@ void menu(page_menu *ptrmain){
 
 void enter(page_menu *ptrmain){
 	switch(ptrmain->a){
+		case 2:	clear();
+			int i;
+			while((i = getch()) != 'q'){
+				printw("hola mundo\n");
+				refresh();
+			}	
+			break;
 		case 3: system("clear");
 			exit(1);
 			break;
