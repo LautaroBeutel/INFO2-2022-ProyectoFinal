@@ -38,15 +38,22 @@ void motorcontrol::print_micro(int paso){
     digitalWrite(_pin_d, micro_paso[paso][3]);
 }
 
+int motorcontrol::thisPosition(){
+    return this->posicion;
+}
+
 void motorcontrol::rotateSteps(int steps, int arg){
     int dir = steps > 0 ? 0 : 1;
+    int missing_steps = abs(steps);
+    
+    posicion += steps;
+
     switch (dir)
     {
-    case 0:
-        for (int i = 0; i < steps; i++)
-        {
-            switch (arg)
+    case 0: while (missing_steps > 0)
             {
+                switch (arg)
+                {
                 case 1:
                     print_simple(paso_actual);
                     paso_actual++;
@@ -76,94 +83,15 @@ void motorcontrol::rotateSteps(int steps, int arg){
                     break;
                 default:
                     break;
-            }
-            delay(2);
-        }
-        break;
-    case 1:
-        Serial.println("me rompi aca 1");
-        for (int i = 0; i < abs(steps); i++)
-        {
-            switch (arg)
-            {
-                case 1:
-                    print_simple(3 - paso_actual);
-                    paso_actual++;
-                    if (paso_actual > 3)
-                    {
-                        paso_actual = 0;
-                    }
-                    //delay(10);
-                    break;
-                case 2:
-                    print_doble(3 - paso_actual);
-                    paso_actual++;
-                    if (paso_actual > 3)
-                    {
-                        paso_actual = 0;
-                    }
-                    //delay(10);
-                    break;
-                case 3:
-                    print_micro(7 - paso_actual);
-                    paso_actual++;
-                    if (paso_actual > 7)
-                    {
-                        paso_actual = 0;
-                    }
-                    //delay(10);
-                    break;
-                default:
-                    break;
-            }
-            delay(2);
-        }
-        break;
-    }
-}
-/* 
-    switch (dir){
-        case 0:
-            paso_actual = 0;
-            for (int i = 0; i < steps; i++)
-            {
-                switch (arg){
-                    case 1:
-                        print_simple(paso_actual);
-                        paso_actual++;
-                        if (paso_actual > 3)
-                        {
-                            paso_actual = 0;
-                        }
-                        delay(10);
-                        break;
-                    case 2:
-                        print_doble(paso_actual);
-                        paso_actual++;
-                        if (paso_actual > 3)
-                        {
-                            paso_actual = 0;
-                        }
-                        delay(10);
-                        break;
-                    case 3:
-                        print_micro(paso_actual);
-                        paso_actual++;
-                        if (paso_actual > 7)
-                        {
-                            paso_actual = 0;
-                        }
-                        delay(10);
-                        break;
                 }
-                
+                missing_steps--;
+                delay(2);
             }
-            break;
-        case 1:
-            paso_actual = 0;
-            for (int i = 0; i >= steps; i--)
+        break;
+    case 1: while (missing_steps > 0)
             {
-                switch (arg){
+                switch (arg)
+                {
                     case 1:
                         print_simple(3 - paso_actual);
                         paso_actual++;
@@ -171,7 +99,7 @@ void motorcontrol::rotateSteps(int steps, int arg){
                         {
                             paso_actual = 0;
                         }
-                        delay(10);
+                        //delay(10);
                         break;
                     case 2:
                         print_doble(3 - paso_actual);
@@ -180,7 +108,7 @@ void motorcontrol::rotateSteps(int steps, int arg){
                         {
                             paso_actual = 0;
                         }
-                        delay(10);
+                        //delay(10);
                         break;
                     case 3:
                         print_micro(7 - paso_actual);
@@ -189,9 +117,14 @@ void motorcontrol::rotateSteps(int steps, int arg){
                         {
                             paso_actual = 0;
                         }
-                        delay(10);
+                        //delay(10);
+                        break;
+                    default:
                         break;
                 }
+                missing_steps--;
+                delay(2);
             }
-            break;
-        } */
+        break;
+    }
+}

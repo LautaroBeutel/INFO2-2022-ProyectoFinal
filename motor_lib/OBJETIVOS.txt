@@ -1,0 +1,5 @@
+-Reemplazar el delay en metodo rotateSteps() e implementarlo con millis
+#-implementar la rotacion en la otra direccion 
+-crear metodo para girar x grados
+#-crear metodo que retorne la posicion actual
+-crear metodo para definir la velocidad del motor

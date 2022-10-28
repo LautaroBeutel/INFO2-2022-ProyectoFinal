@@ -21,7 +21,8 @@ class motorcontrol{
         int _pin_d;
 
         int paso_actual;
-
+        int posicion;
+        
         int paso_simple[4][4] = {
             {1, 0, 0, 0},
             {0, 1, 0, 0},
@@ -53,7 +54,7 @@ class motorcontrol{
         motorcontrol(int pin_a, int pin_b, int pin_c, int pin_d);
         ~motorcontrol();
 
+        int thisPosition();
         void rotateSteps(int steps, int arg);
 };
-
 #endif
