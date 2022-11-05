@@ -91,6 +91,9 @@ void MenuBar::drawMenu(Menu menu, bool is_selected){
         case KEY_DOWN:
             menu.selectNextItem();
             break;
+        case 10:
+            handleItem(menu, menu.selected_item);
+            break;
         default:
             break;
         }
@@ -112,10 +115,42 @@ void MenuBar::drawMenuItems(Menu menu){
             mvwchgat(menuwin, i, 0, xMax, A_NORMAL, 1, NULL);
         }else{
             mvwchgat(menuwin, i, 0, xMax, A_NORMAL, 0, NULL);
-        }
-        
+        }   
     }
-    
+}
+
+void MenuBar::handleItem(Menu menu, int selected_item){
+    std::string opciones[menu.num_items];
+    std::string opcion = "Salir";
+    for (int i = 0; i < menu.num_items; i++)
+    {
+        opciones[i] = menu.items[i];
+    }
+    if (menu.items[0] == opciones[selected_item])
+    {
+        system("clear");
+        system("cmatrix");
+    }
+    if (menu.items[menu.num_items-2] == opciones[selected_item])
+    {
+        /* code */
+    }
+    if (menu.items[menu.num_items-1] == opciones[selected_item])
+    {
+        system("clear");
+        echo();
+        curs_set(1);
+        endwin();
+        exit(1);
+    }
+    /*
+    if(menu.items[selected_item] == opcion){
+        system("clear");
+        echo();
+        curs_set(1);
+        endwin();
+        exit(1);
+    }*/
 }
 
 void MenuBar::handleTrigger(char trigger){

@@ -39,8 +39,6 @@ int main(){
     {
         menubar.handleTrigger(ch);
         menubar.draw();
-    }
- 
-    endwin();   
+    } 
     return 0;
 }

@@ -38,6 +38,8 @@ class MenuBar
         void drawMenu(Menu menu, bool is_selected);
         void drawMenuItems(Menu menu);
 
+        void handleItem(Menu menu, int selected_item);
+
         void handleTrigger(char triger);
 
 	    WINDOW *menuwin;
