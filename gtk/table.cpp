@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include "rs232.h"
 
-int pasos = 250;
+int pasos = 250; // Var Global con la cantodad de pasos que se realizan con cada pulsacion
 using namespace std;
 
 typedef struct Motores {   //Definimos de la estructura para guardar los datos de los sensores
@@ -62,90 +62,102 @@ void Enviar_Struct(){
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void arriba_clicked(GtkWidget* witget, gpointer data){
+ 
+void arriba_clicked(GtkWidget* witget, gpointer data){ // Mov Arriba 
 
 	Datos.datos.x = 0;
 	Datos.datos.y = pasos;
 	Datos.datos.x_actual = 102;
 	Datos.datos.y_actual = 103;
 	
-	enviar_letra('y');
+	enviar_letra('y'); // enviamos letra para que el arduino sepa que motor mover
 	usleep(200000);
 	Enviar_Struct();
 
 	
 }
-void abajo_clicked(GtkWidget* witget, gpointer data){
+void abajo_clicked(GtkWidget* witget, gpointer data){// Mov Abajo 
 
 	Datos.datos.x = 0;
 	Datos.datos.y = (pasos*-1);
 	Datos.datos.x_actual = 102;
 	Datos.datos.y_actual = 103;
 	
-	enviar_letra('y');
+	enviar_letra('y');// enviamos letra para que el arduino sepa que motor mover
 	usleep(200000);
 	Enviar_Struct();
 }
-void izquierda_clicked(GtkWidget* witget, gpointer data){
+void izquierda_clicked(GtkWidget* witget, gpointer data){ // Mov izquierda
 	Datos.datos.x = (pasos*-1);
 	Datos.datos.y = 0;
 	Datos.datos.x_actual = 102;
 	Datos.datos.y_actual = 103;
 	
-	enviar_letra('x');
+	enviar_letra('x');// enviamos letra para que el arduino sepa que motor mover
 	usleep(200000);
 	Enviar_Struct();
 
 }
-static void derecha_clicked(GtkWidget* witget, gpointer data){
+static void derecha_clicked(GtkWidget* witget, gpointer data){// Mov derecha
 	Datos.datos.x = pasos;
 	Datos.datos.y = 0;
 	Datos.datos.x_actual = 102;
 	Datos.datos.y_actual = 103;
 	
-	enviar_letra('x');
+	enviar_letra('x');// enviamos letra para que el arduino sepa que motor mover
 	usleep(200000);
 	Enviar_Struct();
 	
 }
 
 int main(int argc, char* argv[]){
-	chequeo_port();
 
-	gtk_init(&argc,&argv);
+	chequeo_port(); // Chequea la conecion con el puerto, en esta caso con el Arduino 
 
-	GtkWidget* window, *table, *arriba,*abajo, *izquierda, *derecha;
-
-	window=gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	g_signal_connect(window,"delete-event",G_CALLBACK(gtk_main_quit),NULL);
+	gtk_init(&argc,&argv);//Esta Función Inicializa todo lo necesario para el funcionamiento de GTK
 	
-	table=gtk_table_new(3,5,0);
-	arriba    = gtk_button_new_with_label("Arriba");
+	GtkWidget* window, *table, *arriba,*abajo, *izquierda, *derecha;//Creo los objetos 
+
+	window=gtk_window_new(GTK_WINDOW_TOPLEVEL);//Inicializamos la Ventana
+	
+	g_signal_connect(window,"delete-event",G_CALLBACK(gtk_main_quit),NULL);
+
+	table=gtk_table_new(3,5,0); // inicializamos la tabla y detarminamos su tamaño
+	// inicializamos los botones 
+	arriba    = gtk_button_new_with_label("Arriba"); 
 	abajo     = gtk_button_new_with_label("Abajo");
 	izquierda = gtk_button_new_with_label("Izquierda");
 	derecha   = gtk_button_new_with_label("Derecha");
+
+	//Ubicamos los objetos en la tabla
 	gtk_table_attach(GTK_TABLE(table),arriba,1,2,0,1,GTK_FILL,GTK_FILL,0,0);
 	gtk_table_attach(GTK_TABLE(table),abajo,1,2,2,3,GTK_FILL,GTK_FILL,0,0);
 	gtk_table_attach(GTK_TABLE(table),izquierda,0,1,1,2,GTK_FILL,GTK_FILL,0,0);
 	gtk_table_attach(GTK_TABLE(table),derecha,2,3,1,2,GTK_FILL,GTK_FILL,0,0);
 
-	
+	//Conectamos las señales de los botones a las funciones
 	g_signal_connect(abajo,"clicked",GTK_SIGNAL_FUNC(abajo_clicked),NULL);
 	g_signal_connect(arriba,"clicked",GTK_SIGNAL_FUNC(arriba_clicked),NULL);
 	g_signal_connect(izquierda,"clicked",GTK_SIGNAL_FUNC(izquierda_clicked),NULL);
 	g_signal_connect(derecha,"clicked",GTK_SIGNAL_FUNC(derecha_clicked),NULL);
 
-	gtk_container_add(GTK_CONTAINER(window),table);
+	gtk_container_add(GTK_CONTAINER(window),table); //Le decilos a la Lib que la tabla se encuetra contanida por window
+
+	// Seteamos el tamaño de los objetos
 	gtk_widget_set_usize(window,300,300);
 	gtk_widget_set_usize(arriba,100,100);
 	gtk_widget_set_usize(abajo,100,100);
 	gtk_widget_set_usize(izquierda,100,100);
 	gtk_widget_set_usize(derecha,100,100);
 
-	gtk_widget_show_all(window);
-	gtk_main();
+	gtk_widget_show_all(window); // Mostramos Todo
+	gtk_main(); // esto es para q no se cierre 
 	return 0;
 }
-
-
