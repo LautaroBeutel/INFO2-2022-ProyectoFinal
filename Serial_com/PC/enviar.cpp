@@ -63,16 +63,14 @@ int main(){
 	cout<<"Opcion : ";
 	cin>>letra;
 	Datos.datos.x = 100;
-	Datos.datos.y = 101;
+	Datos.datos.y = 100;
 	Datos.datos.x_actual = 102;
 	Datos.datos.y_actual = 103;
 	
 	chequeo_port();
 	enviar_letra(letra);
-	usleep(150000);
+	usleep(200000);
 	Enviar_Struct();
-	usleep(150000);
-	Recibir_Struct();
 
 	return(0);
 }

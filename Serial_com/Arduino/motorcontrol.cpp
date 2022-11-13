@@ -85,7 +85,7 @@ void motorcontrol::rotateSteps(int steps, int arg){
                     break;
                 }
                 missing_steps--;
-                delay(2);
+                delay(3);
             }
         break;
     case 1: while (missing_steps > 0)
@@ -123,8 +123,14 @@ void motorcontrol::rotateSteps(int steps, int arg){
                         break;
                 }
                 missing_steps--;
-                delay(2);
+                delay(3);
             }
         break;
     }
+    digitalWrite(_pin_a,0);
+    digitalWrite(_pin_b,0);
+    digitalWrite(_pin_c,0);
+    digitalWrite(_pin_d,0);
+
+
 }

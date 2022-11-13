@@ -45,21 +45,21 @@ void loop() {
 
   uint8_t Identificador[1];  //Variable que se usa para identificar el tipo de sensor elegido
   size_t n;                  //Utilizamos esta variable para verificar si se leyeron datos
-  //b.rotateSteps(200,1);
-  //delay(200);
-  //b.rotateSteps(200,2);
+                             //b.rotateSteps(200,1);
+                             //delay(200);
+                             //b.rotateSteps(200,2);
+
 
 
   if (Serial.available()) {
 
     n = Serial.readBytes(Identificador, 1);
-    if(Identificador[0] == 'y') {
+    if (Identificador[0] == 'y') {
       Recibir_Struct();
-      b.rotateSteps(Datos.datos.y,2);      
-    }else if(Identificador[0] == 'x'){
+      a.rotateSteps(Datos.datos.y, 2);
+    } else if (Identificador[0] == 'x') {
       Recibir_Struct();
-      a.rotateSteps(Datos.datos.x,1);
+      b.rotateSteps(Datos.datos.x, 1);
     }
-    
   }
 }
