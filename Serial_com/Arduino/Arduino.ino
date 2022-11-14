@@ -24,13 +24,13 @@ union UDato {  //Definimos una union para poder mandar los datos byte a byte
 
 int espera = 200, time = 0;  //Variables usadas en el antirebote y el delay
 
-void Actual() {
+void Enviar_Struct() {
 
   for (unsigned long long k = 0; k < sizeof(Motores); k++) {  //Pasamos los datos byte a byte
     Serial.write(Datos.a[k]);
   }
 }
-void Recibir_Struct() {
+void Recibir_Struct(){
   Serial.readBytes(Datos.a, sizeof(Motores));
 }
 
@@ -40,20 +40,15 @@ void setup() {
 }
 
 void loop() {
+  //creamos los dos objetos para cada motor
   motorcontrol a = motorcontrol(7, 6, 5, 4);
   motorcontrol b = motorcontrol(8, 9, 10, 11);
 
-  uint8_t Identificador[1];  //Variable que se usa para identificar el tipo de sensor elegido
-  size_t n;                  //Utilizamos esta variable para verificar si se leyeron datos
-                             //b.rotateSteps(200,1);
-                             //delay(200);
-                             //b.rotateSteps(200,2);
-
-
+  uint8_t Identificador[1];  //Variable que se usa para identificar el tipo de movimiento en Y o X
 
   if (Serial.available()) {
 
-    n = Serial.readBytes(Identificador, 1);
+    Serial.readBytes(Identificador, 1);
     if (Identificador[0] == 'y') {
       Recibir_Struct();
       a.rotateSteps(Datos.datos.y, 2);

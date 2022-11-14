@@ -85,7 +85,7 @@ void motorcontrol::rotateSteps(int steps, int arg){
                     break;
                 }
                 missing_steps--;
-                delay(3);
+                delay(5);
             }
         break;
     case 1: while (missing_steps > 0)
@@ -123,7 +123,7 @@ void motorcontrol::rotateSteps(int steps, int arg){
                         break;
                 }
                 missing_steps--;
-                delay(3);
+                delay(5);
             }
         break;
     }
