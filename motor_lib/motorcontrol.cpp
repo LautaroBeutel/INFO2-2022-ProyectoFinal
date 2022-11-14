@@ -38,6 +38,13 @@ void motorcontrol::print_micro(int paso){
     digitalWrite(_pin_d, micro_paso[paso][3]);
 }
 
+void motorcontrol::print_off(){
+    digitalWrite(_pin_a, motor_off[0]);
+    digitalWrite(_pin_b, motor_off[1]);
+    digitalWrite(_pin_c, motor_off[2]);
+    digitalWrite(_pin_d, motor_off[3]);
+}
+
 int motorcontrol::thisPosition(){
     return this->posicion;
 }
@@ -50,81 +57,76 @@ void motorcontrol::rotateSteps(int steps, int arg){
 
     switch (dir)
     {
-    case 0: while (missing_steps > 0)
+    case 0: while (missing_steps > 0)   // mientras existan pasos por hacer ejecutar lo siguiente
             {
-                switch (arg)
+                switch (arg)    // dependiendo del "arg" usa una u otra rutina de pasos
                 {
                 case 1:
-                    print_simple(paso_actual);
+                    print_simple(paso_actual);  //paso simple
                     paso_actual++;
                     if (paso_actual > 3)
                     {
                         paso_actual = 0;
                     }
-                    //delay(10);
                     break;
                 case 2:
-                    print_doble(paso_actual);
+                    print_doble(paso_actual);   //paso doble
                     paso_actual++;
                     if (paso_actual > 3)
                     {
                         paso_actual = 0;
                     }
-                    //delay(10);
                     break;
                 case 3:
-                    print_micro(paso_actual);
+                    print_micro(paso_actual);   //micro paso
                     paso_actual++;
                     if (paso_actual > 7)
                     {
                         paso_actual = 0;
                     }
-                    //delay(10);
                     break;
                 default:
                     break;
                 }
-                missing_steps--;
-                delay(2);
+                missing_steps--;    //restar un paso
+                delay(5);
             }
         break;
-    case 1: while (missing_steps > 0)
+    case 1: while (missing_steps > 0)   // mientras existan pasos por hacer ejecutar lo siguiente
             {
-                switch (arg)
+                switch (arg)    // dependiendo del "arg" usa una u otra rutina de pasos
                 {
                     case 1:
-                        print_simple(3 - paso_actual);
+                        print_simple(3 - paso_actual);  //paso simple
                         paso_actual++;
                         if (paso_actual > 3)
                         {
                             paso_actual = 0;
                         }
-                        //delay(10);
                         break;
                     case 2:
-                        print_doble(3 - paso_actual);
+                        print_doble(3 - paso_actual);   //paso doble
                         paso_actual++;
                         if (paso_actual > 3)
                         {
                             paso_actual = 0;
                         }
-                        //delay(10);
                         break;
                     case 3:
-                        print_micro(7 - paso_actual);
+                        print_micro(7 - paso_actual);   //micro paso
                         paso_actual++;
                         if (paso_actual > 7)
                         {
                             paso_actual = 0;
                         }
-                        //delay(10);
                         break;
                     default:
                         break;
                 }
-                missing_steps--;
-                delay(2);
+                missing_steps--;    //restar un paso
+                delay(5);
             }
         break;
     }
+    print_off();    // apagar el motor
 }
