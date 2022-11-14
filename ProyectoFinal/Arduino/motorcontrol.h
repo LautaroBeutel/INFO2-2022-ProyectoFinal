@@ -47,7 +47,7 @@ class motorcontrol{
         };
 
         int motor_off[4] = {         // ARRAY CON LAS SECUENCIAS DE APAGADO DE LAS BOBINAS
-            0, 0, 0, };
+            0, 0, 0, 0};
 
         void print_simple(int);     //metodo para secuencia de paso simple
         void print_doble(int);      //metodo para secuencia de paso doble
