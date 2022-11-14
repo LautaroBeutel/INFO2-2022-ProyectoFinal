@@ -7,7 +7,7 @@
 #include <stdint.h>
 #include "rs232.h"
 
-int pasos = 250; // Var Global con la cantodad de pasos que se realizan con cada pulsacion
+int pasos = 50; // Var Global con la cantodad de pasos que se realizan con cada pulsacion
 using namespace std;
 
 typedef struct Motores {   //Definimos de la estructura para guardar los datos de los sensores
