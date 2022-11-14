@@ -9,12 +9,12 @@
  * completa de 360° —como verán en el programa— es de 4076. 
  */
 
-#define SIMPLE  1
-#define DOBLE   2
-#define MICRO   3
+#define SIMPLE  1   // MACRO PARA RUTINA DE PASO SIMPLE
+#define DOBLE   2   // MACRO PARA RUTINA DE PASO DOBLE
+#define MICRO   3   // MACRO PARA RUTINA DE MICRO PASO
 
 class motorcontrol{
-    private:
+    private:    // ATRIBUTOS
         int _pin_a;
         int _pin_b;
         int _pin_c;
@@ -23,19 +23,19 @@ class motorcontrol{
         int paso_actual;
         int posicion;
         
-        int paso_simple[4][4] = {
+        int paso_simple[4][4] = {   // ARRAY CON LAS SECUENCIAS DE ACTIVACION DE LAS BOBINAS PARA PASO SIMPLE
             {1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 1, 0},
             {0, 0, 0, 1},
         };
-        int paso_doble[4][4] = {
+        int paso_doble[4][4] = {    // ARRAY CON LAS SECUENCIAS DE ACTIVACION DE LAS BOBINAS PARA PASO DOBLE
             {1, 1, 0, 0},
             {0, 1, 1, 0},
             {0, 0, 1, 1},
             {1, 0, 0, 1},
         };
-        int micro_paso[8][4] = {
+        int micro_paso[8][4] = {    // ARRAY CON LAS SECUENCIAS DE ACTIVACION DE LAS BOBINAS PARA MICRO PASO
             {1, 0, 0, 0},
             {1, 1, 0, 0},
             {0, 1, 0, 0},
@@ -46,15 +46,20 @@ class motorcontrol{
             {1, 0, 0, 1},
         };
 
-        void print_simple(int);
-        void print_doble(int);
-        void print_micro(int);
+        int motor_off[] = {         // ARRAY CON LAS SECUENCIAS DE APAGADO DE LAS BOBINAS
+            0, 0, 0, 0
+        }
+
+        void print_simple(int);     //metodo para secuencia de paso simple
+        void print_doble(int);      //metodo para secuencia de paso doble
+        void print_micro(int);      //metodo para secuencia de micro paso
+        void print_off();           //metodo para secuencia de apagado
 
     public:
-        motorcontrol(int pin_a, int pin_b, int pin_c, int pin_d);
-        ~motorcontrol();
+        motorcontrol(int pin_a, int pin_b, int pin_c, int pin_d);   //constructor del objeto
+        ~motorcontrol();    //destructor
 
-        int thisPosition();
-        void rotateSteps(int steps, int arg);
+        int thisPosition();     //metodo que devuelve la posicion actual del motor
+        void rotateSteps(int steps, int arg);   //metodo que hace girar el motor
 };
 #endif
